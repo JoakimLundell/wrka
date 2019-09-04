@@ -1,0 +1,276 @@
+
+        .container {
+            display: grid;
+            grid-template-rows: 50px 1fr;
+            grid-template-areas:
+                "header" "content";
+           
+            height: 100vh;
+            width: 100vw;
+
+        }
+
+        :root {
+            --link-color: #42acdc;
+            --lightgreen: #a3d147;
+            --green: #90c226;
+            --darkgreen: #4f8a26;
+        }
+        html, body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            position: absolute;
+            display: block;
+            background: var(--green);
+            height: 100vh;
+        }
+
+        .left-side, .right-side {
+            position: fixed;
+            overflow: hidden;
+        }
+
+        .left-side {
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 50px;
+            z-index: 1000;
+        }
+
+        .right-side {
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 50px;
+            z-index: 1000;
+        }
+
+        .left-side canvas {
+            transform-origin: bottom right;
+            width: 3em;
+            opacity: 0.7;
+            transform: rotate(-5deg); 
+        }
+
+        .right-side canvas:nth-of-type(1n) {
+            left: 0;
+            bottom: -10vh;
+            transform-origin: bottom right;
+            width: 100%;
+            height: 120%;
+            opacity: 0.15;
+            transform: rotate(12deg);
+        }
+
+        .right-side canvas:nth-of-type(2n) {
+            transform-origin: bottom left;
+            background-color: var(--darkgreen);
+            width: 100%;
+            height: 150vh;
+            opacity: 0.7;
+            transform: rotate(30deg);
+        }
+
+        .right-side canvas:nth-of-type(3n) {
+            transform-origin: bottom left;
+            left: 50%;
+            width: 100%;
+            opacity: 0.7;
+            transform: rotate(10deg);
+            z-index:10;
+        }
+
+        .right-side canvas:nth-of-type(4n) {
+            transform-origin: top left;
+            background-color: var(--darkgreen);
+            width: 100%;
+            opacity: 0.7;
+            transform: rotate(-15deg);
+        }
+
+        .right-side canvas:nth-of-type(5n) {
+            transform-origin: top left;
+            left: 60%;
+            width: 100%;
+            opacity: 0.6;
+            transform: rotate(-8deg);
+        }
+
+        header {
+            grid-area: header;
+        }
+
+        .content {
+            grid-area: content;
+        }
+
+        .logo {
+            color: var(--green);
+            font-size: 80px;
+            font-weight: bolder;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+        }
+
+        .logo-text {
+            color: var(--green);
+            font-weight: bold;
+            text-align: center;
+            line-height: 20px;
+            max-width: 300px;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        button {
+            font-size: 14px;
+            margin: 12px 0;
+            padding: 12px;
+            background-color: var(--green);
+            border: 0;
+            border-radius: 6px;
+            
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            color: #202020;
+            
+        }
+
+        button.big {
+            padding: 24px 12px;
+            font-weight: bold;
+            width: 300px;
+        }
+
+        button:hover {
+            background-color: var(--lightgreen);
+        }
+        
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        /* fix */
+        textarea:focus, input:focus, button:focus, select:focus {
+            outline: none;
+        }
+
+        /* subpage */
+    
+        #home, #branch, #listing {
+            display: none;
+            flex-direction: column;
+        }
+
+        #home, #branch, #listing {
+            justify-content: space-between;
+            align-items: center;   
+        }
+
+        .is-active {
+            display: flex !important;
+        }
+
+        /* SELECT */
+        select {
+        font-size: 14px;
+          margin: 12px 0;
+          padding: 11px 12px;
+          background-color: #90c226;
+          border: 0;
+          border-radius: 6px;
+          box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+        }
+
+        option, select {
+          font-size: 16px;
+        }
+
+        /* RESELLER */
+        div.reseller {
+          padding: 12px;
+        }
+
+        div.reseller.focus {
+            animation: focus 2s ease;
+            background-color: rgba(144, 194, 38, 0.7); 
+        }
+
+        /* Safari 4.0 - 8.0 */
+        @-webkit-keyframes focus {
+            0% {background-color: rgba(144, 194, 38, 0.0);}
+            30% { background-color: rgba(144, 194, 38, 1);}
+            100% { background-color:rgba(144, 194, 38, 0.7);}
+        }
+
+        /* Standard syntax */
+        @keyframes focus {
+            0% {background-color: rgba(144, 194, 38, 0.0);}
+            30% { background-color: rgba(144, 194, 38, 1);}
+            100% { background-color:rgba(144, 194, 38, 0.7);}
+        }
+
+        div.reseller {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        div.reseller > .name {
+          font-weight: 900;
+        }
+
+        div.reseller > .address {
+          font-weight: normal;
+        }
+
+        div.reseller > .contact {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        div.reseller > .contact a {
+         
+          color: black;
+         }
+
+        div.reseller > .contact > .phone > a {
+          font-weight: 900;
+        }
+
+        /* MAP */
+        #mapid { 
+          height: 280px; 
+          width: 100vw;
+         
+        }
+        .leaflet-tooltip {
+          padding: 1px 2px;
+        }
+
+        .leaflet-touch .leaflet-bar a {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+            font-size: 18px;
+        }
+
+        .leaflet-container {
+          font: 10px/1.0 "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+
+        .number-icon {
+            background: url("marker-icon.png") no-repeat;
+            text-align:center;
+            color:White;
+            font-size: 15px;
+            padding-top: 4px;
+        }
+        

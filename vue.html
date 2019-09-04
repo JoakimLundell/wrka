@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WRKA</title>
+    <!--link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- production version, optimized for size and speed -->
+    <!-- script src="https://cdn.jsdelivr.net/npm/vue"></script -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    
+        <!-- <link href="bulma.min.css" rel="stylesheet"> -->
+   
+</head>
+<body>
+    <div class="container">
+
+        <!--div class="left-side">
+            <canvas></canvas>
+        </div>
+        <div class="right-side">
+            <canvas></canvas>
+            <canvas></canvas>
+            <canvas></canvas>
+            <canvas></canvas>
+            <canvas></canvas>
+        </div-->
+        <header style="height: 42px; background: var(--green); display: flex; align-items: center;padding: 0 12px;color:var(--lightgreen);">
+            <span style="color: white">WRKA </span> > Branch > Företag </header>
+        <div class="content">
+            
+            <div id="app">
+                {{ message }}
+            </div>
+
+            <div id="app-7">
+                <ol>
+                    <!--
+                    Now we provide each todo-item with the todo object
+                    it's representing, so that its content can be dynamic.
+                    We also need to provide each component with a "key",
+                    which will be explained later.
+                    -->
+                    <todo-item
+                    v-for="item in groceryList"
+                    v-bind:todo="item"
+                    v-bind:key="item.id"
+                    ></todo-item>
+                </ol>
+            </div>
+
+            <div id="app-router">
+                    <h1>Hello App!</h1>
+                    <p>
+                      <!-- use router-link component for navigation. -->
+                      <!-- specify the link by passing the `to` prop. -->
+                      <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+                      <router-link to="/foo">Go to Foo</router-link>
+                      <router-link to="/bar">Go to Bar</router-link>
+                    </p>
+                    <!-- route outlet -->
+                    <!-- component matched by the route will render here -->
+                    <router-view></router-view>
+            </div>
+                      
+            <div id="home">
+                <div class="logo">WRKA</div>
+                <div class="logo-text">Appen för säkrare kontakter till branschanslutna företag</div>
+                <button class="big" onclick="showBranchChooser()">Klicka för att hitta rätt hantverkare</button>
+            </div>
+            <div id="branch">
+                <div class="logo-text">Klicka på den ruta inom vilken branch du söker företag.</div>
+                <button class="big" onclick="showListing(this)" data-branch="el">EL</button>
+                <button class="big" onclick="showListing(this)" data-branch="vvs">VVS</button>
+                <button class="big" onclick="showListing(this)" data-branch="locksmith">LÅSSMED</button>
+            </div>
+            <div id="listing">
+                <!--div id="branch-name"></div-->
+                <div id="mapid"></div>
+                <div>
+                        <select id="city" onchange="showCity()"></select>
+                        <button onclick="nearme()">Nära mig</button>
+                </div>
+                <div style="padding: 25px 50px"> Låssmed - Branchorganisatione heter Sveriges Lås och Säkerhetsleverantörers Riksförbund (SLR) och är en rikstäckande organisation för låsmästare från Trelleborg till Kiruna. De är 155 medlemsföretag med 50 filialer, totalt alltså 200 lås- och säkerhetsföretag spridda över hela landet. SLR är anslutet till SäkerhetsBranschen, European Locksmith Federation samt Företagarnas Riksorganisation.</div>
+                
+                
+                <div id="listing-content" style="width: auto; overflow-y: auto"></div>
+                <div id="demo"></div>
+            </div>
+
+        </div>
+
+    </div>
+  
+</body>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+         }
+    })
+
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    })
+
+    var app7 = new Vue({
+        el: '#app-7',
+        data: {
+            groceryList: [
+            { id: 0, text: 'Vegetables' },
+            { id: 1, text: 'Cheese' },
+            { id: 2, text: 'Whatever else humans are supposed to eat' }
+            ]
+        }
+    })
+
+
+    // 1. Define route components.
+    // These can be imported from other files
+    const Foo = { template: '<div>foo</div>' }
+    const Bar = { template: '<div>bar</div>' }
+
+    // 2. Define some routes
+    // Each route should map to a component. The "component" can
+    // either be an actual component constructor created via
+    // `Vue.extend()`, or just a component options object.
+    // We'll talk about nested routes later.
+    const routes = [
+    { path: '/foo', component: Foo },
+    { path: '/bar', component: Bar }
+    ]
+
+    // 3. Create the router instance and pass the `routes` option
+    // You can pass in additional options here, but let's
+    // keep it simple for now.
+    const router = new VueRouter({
+    routes // short for `routes: routes`
+    })
+
+    // 4. Create and mount the root instance.
+    // Make sure to inject the router with the router option to make the
+    // whole app router-aware.
+    const app2 = new Vue({
+        router
+    }).$mount('#app-router')
+
+
+
+
+    let customers = [];
+    let filtered = []
+    let highlighted;
+    let myCoords = [];
+
+    document.getElementById('home').classList.toggle('is-active'); 
+
+    function showBranchChooser() {
+        document.getElementById('home').classList.toggle('is-active');
+        document.getElementById('branch').classList.toggle('is-active');
+    }
+
+    function showListing(d) {
+        document.getElementById('branch').classList.toggle('is-active');
+        document.getElementById('listing').classList.toggle('is-active');
+        //document.getElementById('branch-name').innerHTML = d.getAttribute("data-branch");
+        initBounds();
+    }
+
+    function showCity() {
+        highlighted = null;
+        let city = document.getElementById("city").value;
+        filtered = [];
+        
+        customers.forEach(function(i){
+            if(i.city === city.toUpperCase()){
+                filtered.push(i);
+               
+            }
+        });
+        showData();
+        showPins();
+    }
+
+    function showNearest() {
+        let myArea;
+        let p = myCoords;
+        highlighted = null;
+        filtered = [];  
+        let coords;
+
+        var tmpMarkers = L.featureGroup();
+        myArea = L.circle([p.latitude, p.longitude], {
+            radius: 10000
+        }).addTo(myMap);
+
+        customers.forEach(function(customer, index){
+           coords = (customer.latlng).split(',');
+           var marker = L.marker([coords[0], coords[1]]);
+           if(myArea.getBounds().contains(marker.getLatLng())){
+                filtered.push(customer);
+           }
+            
+        });
+        //myArea.remove(myMap);
+        showData();
+        showPins();
+    }
+
+
+
+    function showData() {
+       
+        var mainContainer = document.getElementById("listing-content");
+        mainContainer.innerHTML = "";
+        for (var i = 0; i < filtered.length; i++) {
+            var div = document.createElement("div");
+            div.className = (highlighted == i) ? 'reseller focus' : 'reseller'
+        
+            div.innerHTML = '<div class="name">' + (i + 1) + ". " +
+                filtered[i].name + '</div><div class="address">' +
+                filtered[i].address + '</div><div class="contact"><div class="phone"><a href="' +
+                filtered[i].phone + '">' + filtered[i].phone
+                +'</a></div><span class="mail"><a href="mailto:' + 
+                filtered[i].email+'?Subject=Hej">E-post</a></span><span class="webisite"><a href="//' + 
+                filtered[i].website+'" target="_new">www</a></span></div>';
+        
+            mainContainer.appendChild(div);
+
+            if (highlighted == i){
+                //div.scrollIntoView();
+                div.scrollIntoView({behavior: "smooth", block: "start", inline: "center"});
+            }
+        } 
+    }
+
+    // Init resellers
+    let url = 'test.json';
+    fetch(url)
+        .then(res => res.json())
+        .then((json) =>  {
+            appendData(json);
+        })
+    .catch(err => { throw err });
+
+   
+
+    
+   
+
+    function appendData(data) {
+      customers = data;
+      let option = [];
+      option.push("Välj ort"); 
+      for (var i = 0; i < data.length; i++) {
+        
+        let city;
+        let j = data[i].address;
+        var matches = j.match(/[a-öA-Ö ]*$/); 
+        if (matches) {
+          city = capitalize(matches[0].trim());
+        }
+        option.push(city);
+      }
+
+      var unique = option.filter(onlyUnique);  
+      updateSelect(unique);
+    }
+
+    function updateSelect(option) {
+      let s = document.getElementById("city");
+      
+      for (var i = 0; i < option.length; i++) {
+          let o = document.createElement("option");
+          o.innerHTML = option[i];
+          s.appendChild(o);
+      } 
+    }
+
+    function highlightReseller(id){
+        highlighted = id;
+        showData();
+    }
+
+    const capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+            s = s.toLowerCase();
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
+
+    function resetSelect() {
+        document.getElementById("city").selectedIndex = 0;
+    }
+
+    /* Geolocation */
+    function nearme() {
+       
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        }
+        
+        navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, options); 
+    }
+
+    function geolocationSuccess(position) {
+        console.log("Fick position" + position);
+        
+        let temp = position.coords;
+        console.dir(position);
+        myCoords = position.coords;
+        //this.set('state.geo.error', null)
+        //this.dispatchEvent(new CustomEvent('save-geolocation', { bubbles: true, composed: true, detail: { pos: position } }));
+        resetSelect();
+        showNearest();
+    }
+
+    function geolocationError(error) {
+    //    this.set('state.geo.error', error.message)
+    //    this.dispatchEvent(new CustomEvent('flash', { detail: { message: error.message } }));
+
+    /* Flash a error message*/ 
+    console.log("Oooops ");
+    }
+
+
+
+    </script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin="">
+    </script>
+
+    <script>
+    // Map init    
+    var myMap = L.map('mapid').setView([62.875188, 16.391602], 3);
+    var myMarkers = L.featureGroup();
+    //L.control.attribution.setPosition('bottomleft');
+
+    
+
+
+    var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        
+    }).addTo(myMap);
+
+  
+    
+    myMap.zoomControl.setPosition('bottomright');
+
+    function initBounds() {
+        return new Promise(resolve => {
+            myMap.invalidateSize(true);
+            resolve();
+        });
+    }
+      
+    function fitBounds() {
+        // center page over markers
+        myMap.fitBounds(myMarkers.getBounds().pad(1));
+    }
+
+    function showPins() {
+        
+        // clear current layer
+        myMarkers.clearLayers(myMarkers);
+        console.dir(filtered.length);
+        for(let index in filtered) {
+            // Bryt ut till funktion?
+            let id = parseInt(index) +1;
+            let name = id.toString();
+            
+            var numberIcon = L.divIcon({
+                className: "number-icon",
+                iconSize: [25, 41],
+                iconAnchor: [10, 44],
+                popupAnchor: [3, -40],
+                html: name        
+            });
+
+            let coords = (filtered[index].latlng).split(',');
+           
+            var m = L.marker([coords[0],coords[1]],{ 
+                id: index,
+                icon: numberIcon  
+            })
+            .addTo(myMarkers).on('click', function(e) {
+                highlightReseller(e.target.options.id);
+                L.DomUtil.addClass(e.target, 'className');
+            });             
+        };
+        myMarkers.addTo(myMap);
+        fitBounds();
+    }
+    </script>
+</html>
