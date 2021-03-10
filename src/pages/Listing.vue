@@ -370,7 +370,7 @@ scrollIntoViewIfOutOfView(el) {
 }
 
 .box {
-    width: 50vw;
+    width: 45vw;
     padding: 24px;
 }
 </style>

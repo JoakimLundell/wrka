@@ -29,7 +29,10 @@
                     :active="highlighted"></my-reseller>
                      
             </transition-group>
-            <div v-else><h2>Välkommen till Säkerhetsbranchen</h2><br> <h2>Vi kommer snart vara anslutna med våra leverantörer. </h2></div>   
+            <div v-else>
+                <p class="box">SäkerhetsBranschen är en förening för säkerhetsföretag med 505 medlemsföretag som tillsammans omsätter 57 miljarder kronor per år och har 33.000 medarbetare.</p>
+                <div class="box">Vi kommer snart vara anslutna med våra leverantörer. </div>
+            </div>   
         </div>
        
     </main-layout>
@@ -356,5 +359,11 @@ export default {
     z-index: 9999;
     width: 100vw
 }
+
+    .box {
+    width: 45vw;
+    padding: 24px;
+    }
+
 </style>
  

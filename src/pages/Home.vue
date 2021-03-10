@@ -2,10 +2,13 @@
   <center-layout>
     <div class="info">
         <my-logo>Logo</my-logo>
-        <p style="width: 330px">Appen för säkrare kontakter till branschanslutna företag</p>
+        <p style="width: 330px">Lätt att hitta rätt bland branschanslutna företag</p>
     </div>
     <router-link to="/branch" tag="button">
-        Klicka för att hitta rätt hantverkare
+        Söker som privatperson
+    </router-link>
+    <router-link to="/branch" tag="button">
+        Söker som företag
     </router-link>
   </center-layout>
 </template>

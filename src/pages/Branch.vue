@@ -1,10 +1,10 @@
 <template>
   <center-layout>
-    <div class="info">Inom vilken branch du söker företag?</div>
+    <div class="info">Inom vilken branch söker du företag?</div>
    
-    <router-link :to="{ name: 'listing', params: { branchId: 3 }}" tag="button">Låssmed</router-link>
-    <router-link :to="{ name: 'listing', params: { branchId: 2 }}" tag="button">Säkerhetsbranchen</router-link>
-    <router-link :to="{ name: 'listing-ssr'}" tag="button">Sotare</router-link>
+    <router-link :to="{ name: 'listing', params: { branchId: 3 }}" tag="button">SLR - Låssmed</router-link>
+    <router-link :to="{ name: 'listing-ssr', params: { branchId: 2 }}" tag="button">Säkerhetsbranchen</router-link>
+    <router-link to="/branch" tag="button">..nästa branch</router-link>
     
   </center-layout>
 </template>
