@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 //import MainLayout from './layouts/Main.vue'
 import Hello from './Hello.vue'
 import Listing from './pages/Listing.vue'
+import ListingSsr from './pages/ListingSsr.vue'
 import Home from './pages/Home.vue'
 import Branch from './pages/Branch.vue'
 
@@ -16,6 +17,7 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/branch', component: Branch },
   { path: '/listing', component: Listing },
+  { path: '/listing-ssr', component: ListingSsr, name:'listing-ssr' },
   { path: '/listing/:id', component: Listing, props:true, name: 'listing' },
 ]
 

@@ -1,8 +1,124 @@
-.jocke {
-    color: blue;
-    background-color: darkblue;
+:root {
+    --link-color: #42acdc;
+    --palegreen: #c2e084;
+    --lightgreen: #a3d147;
+    --green: #90c226;
+    --darkgreen: #4f8a26;
+    --gray: #f8faf8;
+}
+html, body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
 }
 
+button {
+    background: var(--green);
+    border: 0;
+    border-radius: 6px;
+    padding: 12px 24px;
+    margin: 6px 0;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+    padding: 24px 12px;
+    width: 100%;
+    max-width: 500px;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+button.wide {
+    width: 300px;
+}
+
+button:hover {
+    background: #a3d147;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+}
+button.small {
+    width: auto;
+    padding: 12px;
+    margin: 6px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* select */
+select {
+    font-size: 14px;
+    margin: 12px 0;
+    padding: 11px 12px;
+    background-color: #90c226;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+}
+select:hover {
+    background: #a3d147;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+}
+
+/* header*/
 header {
-    background: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 35px;
+    background: var(--green);
+    padding: 0 10vw;
+}
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-attachment: fixed;
+    height: 100%;
+}
+header nav li {
+    float: left;
+}
+header nav li a {
+    display: block;
+    color: var(--darkgreen);
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 10px 10px 0;
+    text-decoration: none;
+}
+header nav li:first-of-type a {
+    color: whitesmoke;
+}
+header nav li a:hover {
+    color:whitesmoke;
+}
+
+/* map */
+#map { 
+    height: 280px; 
+    width: 100vw;
+}
+
+.number-icon {
+    background: url('../../marker-icon.png') no-repeat;
+    text-align: center;
+    color:White;
+    font-size: 15px;
+    padding-top: 4px;
+}
+
+.number-icon-active {
+    background: url('../../marker-icon-active.png') no-repeat;
+    text-align: center;
+    color:White;
+    font-size: 15px;
+    padding-top: 4px;
+}
+
+/* fix */
+textarea:focus, input:focus, button:focus, select:focus {
+    outline: none;
 }

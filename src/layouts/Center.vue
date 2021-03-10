@@ -11,6 +11,11 @@
     components: {
       VLink
     },
+     data() {
+    return {
+      routes: this.$router.options.routes
+    };
+  }
     
   }
 </script>

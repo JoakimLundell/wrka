@@ -55,6 +55,7 @@ import { bus } from '../bus.js';
         padding: 12px 24px;
         background: transparent;
         color: darkslategray;
+        
        
     }
     .name {
@@ -66,6 +67,7 @@ import { bus } from '../bus.js';
     }
     .active {
       background:var(--palegreen);
+      border-radius: 6px;
     }
 
     /*.fade-enter-active, .fade-leave-active {

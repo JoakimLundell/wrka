@@ -24,12 +24,13 @@
                      
                     v-for="reseller in filteredResellers"
                     :reseller="reseller" 
-                    v-bind:key="reseller.id" 
+                    v-bind:key="reseller.phone" 
                     :active="highlighted"></my-reseller>
                      
             </transition-group>
-            <div v-else>Branchorganisatione heter Sveriges Lås och Säkerhetsleverantörers Riksförbund (SLR) och är en rikstäckande organisation för låsmästare från Trelleborg till Kiruna. De är 155 medlemsföretag med 50 filialer, totalt alltså 200 lås- och säkerhetsföretag spridda över hela landet. SLR är anslutet till SäkerhetsBranschen, European Locksmith Federation samt Företagarnas Riksorganisation.<p><b>Klicka ovan för att hitta din licensierade låssmed</b></p></div>   
+            <div v-else>Välkommen till Säkerhetsbranchen</div>   
         </div>
+       
     </main-layout>
 </template>
 
@@ -48,15 +49,7 @@ export default {
         MyReseller,
         MyLoader
     },
-    props: {
-        branchId: {
-            type: Number,
-            required: true 
-        },
-        state: {
-            type: Object
-        },
-    },
+
     data: function () {
         return {
             loading: false,
@@ -100,28 +93,28 @@ export default {
             }, 500);   
         },
 
-scrollIntoViewIfOutOfView(el) {
-  var topOfPage = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-  var heightOfPage = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  var elY = 0;
-  var elH = 0;
-  if (document.layers) { // NS4
-    elY = el.y;
-    elH = el.height;
-  }
-  else {
-    for(var p=el; p&&p.tagName!='BODY'; p=p.offsetParent){
-      elY += p.offsetTop;
-    }
-    elH = el.offsetHeight;
-  }
-  if ((topOfPage + heightOfPage) < (elY + elH)) {
-    el.scrollIntoView(false);
-  }
-  else if (elY < topOfPage) {
-    el.scrollIntoView({behavior: "smooth"});
-  }
-},
+        scrollIntoViewIfOutOfView(el) {
+            var topOfPage = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            var heightOfPage = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            var elY = 0;
+            var elH = 0;
+            if (document.layers) { // NS4
+                elY = el.y;
+                elH = el.height;
+            }
+            else {
+                for(var p=el; p&&p.tagName!='BODY'; p=p.offsetParent){
+                elY += p.offsetTop;
+                }
+                elH = el.offsetHeight;
+            }
+            if ((topOfPage + heightOfPage) < (elY + elH)) {
+                el.scrollIntoView(false);
+            }
+            else if (elY < topOfPage) {
+                el.scrollIntoView({behavior: "smooth"});
+            }
+        },
      
         nearme () {
             var options = {
@@ -189,7 +182,7 @@ scrollIntoViewIfOutOfView(el) {
         fetchResellers () {
             this.loading = true;
             setTimeout(function(){
-                let url = 'test.json';
+                let url = 'sakerhetsbranchen.json';
                 fetch(url)
                 .then(res => res.json())
                 .then((json) =>  {
@@ -210,19 +203,21 @@ scrollIntoViewIfOutOfView(el) {
             return new Promise(resolve => {
                 let options = [];
                 let data = json
-                options.push(this.optionsDefault);
                 for (var i = 0; i < data.length; i++) {
                     let city =data[i].city;
                     city = tools.capitalize(city.trim());
                     //city = tools.capitalize()
                     options.push(city);
                 }
-                var unique = options.filter(tools.onlyUnique);  
+                var unique = options.filter(tools.onlyUnique).sort();  
+                unique.unshift(this.optionsDefault);
+                
                 resolve(unique);
             });
         },
 
         selectChange (city) {
+            console.log("Ändrar stad...");
             this.highlighted = null
             this.currentCity = city;
             this.resellersByCity();
@@ -232,12 +227,16 @@ scrollIntoViewIfOutOfView(el) {
 
         resellersByCity () {
             let array = [];
-            let city = this.currentCity.toUpperCase(); 
+            //let city = this.currentCity.toUpperCase();
+            let city = this.currentCity;
+            //console.dir(this.resellers); 
             this.resellers.forEach(function(i){
-                if(i.city === city){
+                // trim för att name innehåller blanksteg för säkerhetsbranchen
+                if(i.city.trim() === city){
                     array.push(i);  
                 }
             });
+            //console.log(array.length);
             this.filteredResellers = array;
         },
 
