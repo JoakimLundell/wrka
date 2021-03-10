@@ -26,16 +26,16 @@
     background: transparent;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 12px;
+    height: calc(100vh - 155px);
+    
   }
   .info {
     color: var(--green);
     font-size: 18px;
     font-weight: bolder;
     text-align: center;
-    height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

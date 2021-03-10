@@ -98,7 +98,7 @@ header nav li a:hover {
 
 /* map */
 #map { 
-    height: 280px; 
+    height: 50vh; 
     width: 100vw;
 }
 

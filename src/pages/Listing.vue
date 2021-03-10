@@ -18,7 +18,7 @@
                 <my-loader type="radial"></my-loader>
             </div>
              
-            <transition-group name="fade" v-if="filteredResellers.length > 0"> 
+            <!--transition-group name="fade" v-if="filteredResellers.length > 0"--> 
                
                 <my-reseller
                      
@@ -27,8 +27,19 @@
                     v-bind:key="reseller.id" 
                     :active="highlighted"></my-reseller>
                      
-            </transition-group>
-            <div v-else>Branchorganisatione heter Sveriges Lås och Säkerhetsleverantörers Riksförbund (SLR) och är en rikstäckande organisation för låsmästare från Trelleborg till Kiruna. De är 155 medlemsföretag med 50 filialer, totalt alltså 200 lås- och säkerhetsföretag spridda över hela landet. SLR är anslutet till SäkerhetsBranschen, European Locksmith Federation samt Företagarnas Riksorganisation.<p><b>Klicka ovan för att hitta din licensierade låssmed</b></p></div>   
+            <!--/transition-group-->
+            <div v-if="!filteredResellers.length" class="box">
+                Branchorganisationen heter Sveriges Lås och 
+                Säkerhetsleverantörers Riksförbund (SLR) och
+                är en rikstäckande organisation för låsmästare
+                från Trelleborg till Kiruna. De är 155 medlemsföretag
+                med 50 filialer, totalt alltså 200 lås- och säkerhetsföretag
+                spridda över hela landet. SLR är anslutet till SäkerhetsBranschen,
+                European Locksmith Federation samt Företagarnas Riksorganisation.
+                <p>
+                    <b>Klicka ovan för att hitta din licensierade låssmed</b>
+                </p>
+            </div>   
         </div>
     </main-layout>
 </template>
@@ -342,19 +353,25 @@ scrollIntoViewIfOutOfView(el) {
 
 .resellers {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
+    justify-content: center;
     width: auto;
     padding: 0 12px;
-    height: calc(100vh - 379px);/*64 + 280 + 35 */
+    height: calc(50vh - 100px);/*64 + 280 + 35 */
     overflow-y: auto;
-    
 }
 .error {
     background: red; 
     padding: 6px;
     z-index: 9999;
     width: 100vw
+}
+
+.box {
+    width: 50vw;
+    padding: 24px;
 }
 </style>
  

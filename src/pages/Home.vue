@@ -2,7 +2,7 @@
   <center-layout>
     <div class="info">
         <my-logo>Logo</my-logo>
-        <p>Appen för säkrare kontakter till branschanslutna företag</p>
+        <p style="width: 330px">Appen för säkrare kontakter till branschanslutna företag</p>
     </div>
     <router-link to="/branch" tag="button">
         Klicka för att hitta rätt hantverkare

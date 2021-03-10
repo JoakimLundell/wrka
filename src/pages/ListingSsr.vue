@@ -4,11 +4,12 @@
         
     
         <div class="controls">
-            <my-select 
+            <my-select
+                disabled 
                 :index="currentCity" 
                 :options="citys" 
                 v-on:change="selectChange"></my-select>
-            <button 
+            <button disabled 
                 class="small" 
                 v-on:click="nearme">Nära mig</button>
         </div>
@@ -28,7 +29,7 @@
                     :active="highlighted"></my-reseller>
                      
             </transition-group>
-            <div v-else>Välkommen till Säkerhetsbranchen</div>   
+            <div v-else><h2>Välkommen till Säkerhetsbranchen</h2><br> <h2>Vi kommer snart vara anslutna med våra leverantörer. </h2></div>   
         </div>
        
     </main-layout>

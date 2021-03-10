@@ -50,8 +50,8 @@ import { bus } from '../bus.js';
 
 <style scoped>
     .reseller {
-        width: auto;
-        height: auto;
+        width: 300px;
+        height: 100px;
         padding: 12px 24px;
         background: transparent;
         color: darkslategray;
